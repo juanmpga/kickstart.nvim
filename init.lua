@@ -114,6 +114,8 @@ vim.o.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+--  NOTE: clipboard=unnamedplus can interfere with Ctrl+V for visual block mode
+--  We keep it but override Ctrl+V behavior below
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
@@ -175,6 +177,18 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- Classic Vim keybindings
+-- Use 's' for substitution (delete char and enter insert mode)
+vim.keymap.set('n', 's', 'cl', { desc = 'Substitute character' })
+-- Use 's' in visual mode to substitute selection
+vim.keymap.set('v', 's', 'c', { desc = 'Substitute selection' })
+-- Use 'S' to substitute entire line
+vim.keymap.set('n', 'S', 'cc', { desc = 'Substitute line' })
+
+-- Map Ctrl+V to Ctrl+Q for visual block mode (works around terminal paste interception)
+vim.keymap.set('n', '<C-v>', '<C-q>', { noremap = true, silent = true, desc = 'Visual block mode (mapped to Ctrl+Q)' })
+vim.keymap.set('v', '<C-v>', '<C-q>', { noremap = true, silent = true, desc = 'Switch to visual block mode' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which

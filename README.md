@@ -10,6 +10,12 @@ A starting point for Neovim that is:
 
 **NOT** a Neovim distribution, but instead a starting point for your configuration.
 
+## Install on a new machine (Linux/WSL)
+
+1. Install the latest stable Neovim (not the old apt version), plus: `git make gcc ripgrep fd-find unzip xclip`
+2. `git clone https://github.com/juanmpga/kickstart.nvim.git ~/.config/nvim`
+3. Run `nvim`. lazy.nvim installs the plugins on first launch.
+
 ## Installation
 
 ### Install Neovim
